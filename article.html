@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- HTTPS -->
+        <script src="https://jacks.am/MonetWebAdapter/DynamicWebAdapter.js"></script>
+        <link rel="stylesheet" href="assets/styles/main.css">
+        <meta name="description" content="Jack Sam Portfolio">
+        <meta name="keywords" content="MagiskGApps, Jack Sam, Magisk, android, web, MonetWebAdapter, DynamicWebAdapter, wacko1805, wacko1805 github, wacko, jacksam, jacks.am">
+        <meta name="author" content="Wacko1805">
+        <script src="https://kit.fontawesome.com/14f55a56cc.js" crossorigin="anonymous"></script>
+        <style>
+          a {
+            text-decoration: none;
+          }
+
+        article {
+            max-width: 800px;
+            margin: 10px auto;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        article h1, article .description, article small, article p {
+            margin: 0 0 15px 0;
+        }
+        .main-image img {
+            width: 100%;
+            margin: 20px 0;
+        }
+        article h1 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        article .description {
+            font-style: italic;
+            color: var(--tertiary);
+        }
+        article small {
+            display: block;
+            margin-bottom: 20px;
+            color: var(--error);
+        }
+        article .main-content {
+            background: var(--secondaryContainer);
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        article p {
+            line-height: 1.6;
+            color: var(--onSecondaryContainer);
+        }
+        article img {
+            width: 40%;
+            border-radius: 8px;
+        }
+
+
+        /* MINI */
+        .mini-article-grid {
+    display: flex;
+    flex-wrap: wrap;       /* Allows items to move to the next row */
+    gap: 20px;             /* Adds space between cards */
+    padding: 20px;
+}
+
+.mini {
+    border: 5px solid var(--secondaryContainer);
+    background-color: var(--secondaryContainer);
+    border-radius: 15px;
+    flex: 0 0 calc(33.333% - 14px); 
+    box-sizing: border-box;
+}
+
+/* Medium screens: 2 columns */
+@media (max-width: 900px) {
+    .mini {
+        flex: 0 0 calc(50% - 10px);
+    }
+}
+
+
+
+.mini img {
+    border-radius: 10px;
+    margin-bottom: -5px;
+    padding: 0;
+}
+
+.mini h2 {
+    margin-top: 0px;
+    color: var(--onSecondaryContainer);
+    padding: 10px;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.mini p {
+    margin-top: -25px;
+    color: var(--onPrimaryContainer);
+    padding: 0px 10px 0px 10px;
+    font-size: 14px;
+}
+
+.mini:hover {
+    transition: 0.3s ease-in-out;
+    background-color: var(--background);
+}
+
+.mini:hover img {
+    transition: 0.3s ease;
+    border-radius: 10px;
+}
+.RM-heading {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 0px;
+}
+        </style>
+</head>
+<body>
+          <!-- Name Container -->
+        <div class="name-container">
+            <div class="name">
+              <a href="/">
+                <h1>
+                    <span>J</span>
+                    <span>S</span>
+                    <span>.</span>
+                    <span>D</span>
+                    <span>R</span>
+                    <span>I</span>
+                    <span>V</span>
+                    <span>E</span>
+                    <span>S</span>
+                </h1>   
+              </a>
+            </div>
+        </div>
+
+
+<article id="content">
+  <h1>Welcome</h1>
+  <p>Select an article to begin.</p>
+</article>
+<div class="responsive-main">
+    <h2 class="RM-heading">Read More:</h2>
+    <div class="mini-article-grid"></div>
+</div>
+    <script>
+const contentDiv = document.getElementById('content');
+const gridDiv = document.querySelector('.article-grid'); // Ensure this matches your HTML class
+
+async function loadArticle() {
+    const response = await fetch('articles.json');
+    const articles = await response.json();
+    
+    // Get the name after the # (e.g., "getting-started")
+    const articleId = window.location.hash.substring(1);
+
+    if (articleId && articles[articleId]) {
+        const data = articles[articleId];
+        
+        // 1. Update the Browser Tab Title
+        document.title = `${data.title} | My Article Site`;
+
+        // 2. Hide the grid and show the content area
+        if (gridDiv) gridDiv.style.display = 'none';
+        contentDiv.style.display = 'block';
+
+        // 3. Render the Article
+        contentDiv.innerHTML = `
+            <h1>${data.title}</h1>
+            <p class="description">${data.description}</p>
+            <small>${data.date}</small>
+            <div class="main-image"><img src="${data.mainImage}" alt="${data.title}"></div>
+            <div class="main-content">
+            <div>${data.content}</div>
+            </div>
+        `;
+    } else {
+        // 4. Reset Title and show the Grid (Home View)
+        document.title = "My Article Site | Home";
+        
+        if (gridDiv) {
+            gridDiv.style.display = 'grid';
+            contentDiv.style.display = 'none';
+        } else {
+            contentDiv.innerHTML = "<h1>404</h1><p>Article not found.</p>";
+        }
+    }
+}
+
+// Listen for URL changes
+window.addEventListener('hashchange', loadArticle);
+
+// Run on initial page load
+window.addEventListener('load', loadArticle);
+    </script>
+    <script src="assets/js/mini-grid.js"></script>
+
+</body>
+</html>
