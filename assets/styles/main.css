@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&display=swap');
+@import url(header.css);
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondaryContainer);
+  border-radius: var(--radius-big);
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tertiary);
+  cursor: grab;
+}
+
+::-webkit-scrollbar-thumb:active {
+  cursor: grabbing;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+/* FONTS:
+  font-family: "Shippori Antique B1", sans-serif;
+
+*/
+body {
+    margin: 0;
+    background-color: var(--background);
+    font-family: "Shippori Antique B1", sans-serif;
+}
+.name-container {
+  /* height: 100vh; */
+}
+.name {
+    /* padding: 25vh 20vw; */
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    padding-left: 20vw;
+    padding-right: 20vw;
+    display: block;
+    transition: padding 0.1s ease-out;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    
+  }
+  
+  @media screen and (max-width: 1350px) {
+    .name {
+      /* padding: 25vh 15vw; */
+      padding-top: 5vh;
+      padding-bottom: 5vh;
+      padding-left: 15vw;
+      padding-right: 15vw;
+      font-size: 10vw;
+    }
+  }
+  
+  @media screen and (max-width: 850px) {
+    .name {
+      /* padding: 25vh 5vw; */
+      padding-top: 5vh;
+      padding-bottom: 5vh;
+      padding-left: 5vw;
+      padding-right: 5vw;
+      font-size: 10vw;
+    }
+  }
+
+.name h1 {
+    color: var(--tertiary);
+    font-size: 5vw;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;  /* Distribute items evenly */
+    align-items: center; 
+    text-transform: capitalize;
+    font-weight: bolder;
+    transition: 0.7s;
+    text-shadow: 8px 5px var(--tertiaryContainer);
+        padding-left: 30px;
+        padding-right: 30px;
+        border-radius: 20px;
+
+
+
+}
+
+@media screen and (max-width: 1350px) {
+  .name h1 {
+    font-size: 10vw;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .name h1 {
+    font-size: 15vw;
+    padding-left: 0px;
+        padding-right: 0px;
+        margin-bottom: -30px;
+  }
+}
+
+.name h1 span {
+    text-align: center; 
+    transition: 0.5s;
+}
+
+.name h1 span:hover {
+  color: var(--error);
+  text-shadow: 8px 5px var(--onError);
+  margin-top: 10px;
+  margin-bottom: -10px;
+}
+
+
+
+
+.responsive-main {
+  padding-left: 20vw;
+  padding-right: 20vw;
+}
+
+@media screen and (max-width: 1350px) {
+  .responsive-main {
+    padding-left: 10vw;
+    padding-right: 10vw;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .responsive-main {
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+}
+
+            .article-grid {
+                display: flex;
+                flex-wrap: wrap;       /* Allows items to move to the next row */
+                gap: 20px;             /* Adds space between cards */
+                padding: 20px;
+            }
+            .article {
+                border: 5px solid var(--secondaryContainer);
+                border-radius: 15px;
+                flex: 0 0 calc(33.333% - 14px); 
+                box-sizing: border-box;
+            }
+            /* Medium screens: 2 columns */
+            @media (max-width: 900px) {
+                .article {
+                    flex: 0 0 calc(50% - 10px);
+                }
+            }
+
+            /* Mobile screens: 1 column */
+            @media (max-width: 600px) {
+                .article {
+                    flex: 0 0 100%;
+                }
+            }
+
+            .article img {
+                border-radius: 10px 10px 0px 0px;
+                margin-bottom: -5px;
+                padding: 0;
+            }
+            .article h2 {
+                margin-top: 0px;
+                color: var(--onSecondaryContainer);
+                padding: 10px 10px 10px 10px;
+                border-radius:  0px 0px 10px 10px;
+            }
+            .article p {
+                margin-top: -25px;
+                color: var(--onPrimaryContainer);
+                padding: 0px 10px 0px 10px;
+                font-size: 14px;
+            }
+
+            .article:hover {
+                transition: 0.3s ease-in-out;
+                background-color: var(--secondaryContainer);
+            }
+            .article:hover img {
+                transition: 0.3s ease;
+                border-radius: 10px;
+            }
