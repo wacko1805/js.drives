@@ -1,7 +1,7 @@
 {
   "getting-started": {
     "title": "Getting Started",
-    "description": "Learn how to set up your first static site using GitHub Pages and JSON.",
+    "description": "Learn how to set up your first static...",
     "date": "2026-02-16",
     "mainImage": "https://jacks.am/photos/dir/Old%20Cottage_1736154890.jpg",
     "imageAlt": "A colorful welcome banner",
@@ -9,23 +9,50 @@
   },
   "my-second-post": {
     "title": "My Second Post",
-    "description": "Learn how to set up your first static site using GitHub Pages and JSON.",
+    "description": "Learn how to set up your first static...",
     "date": "2026-02-17",
     "mainImage": "https://jacks.am/photos/dir/Old%20Cottage_1736154890.jpg",
     "imageAlt": "Screenshot of a code editor",
     "content": "<p>Adding images is easy with JSON.</p>"
   },
-  "test-upload": {
-    "title": "TEST TITLE",
-    "description": "TEST DESC",
-    "date": "16/02/2026",
-    "mainImage": "photos/IMG_20260211_093811533.jpg",
-    "extraPhotos": [],
-    "content": "<p>TEST TEXT</p>"
-  },
   "test-upload-image": {
     "title": "IMAGE TEXT",
-    "description": "This is a test for JSON uploading",
+    "description": "Learn how to set up your first static...",
+    "date": "16/02/2026",
+    "mainImage": "photos/floorplan1.jpg",
+    "content": "<p>IMAGE TEXT IN CONTENT:</p><p><img src=\"photos/IMG_20260203_173003688.jpg\"></p><p>IMAGE TEST AGAIN:</p><p><img src=\"photos/7 barkly street sat view.png\"></p><p>Image TEST NOT UPLOADED:</p><p><img src=\"photos/IMG_20260203_172730420.jpg\"></p>"
+  },
+    "test-upload-image2": {
+    "title": "IMAGE TEXT",
+    "description": "Learn how to set up your first static...",
+    "date": "16/02/2026",
+    "mainImage": "photos/floorplan1.jpg",
+    "content": "<p>IMAGE TEXT IN CONTENT:</p><p><img src=\"photos/IMG_20260203_173003688.jpg\"></p><p>IMAGE TEST AGAIN:</p><p><img src=\"photos/7 barkly street sat view.png\"></p><p>Image TEST NOT UPLOADED:</p><p><img src=\"photos/IMG_20260203_172730420.jpg\"></p>"
+  },
+    "test-upload-image3": {
+    "title": "IMAGE TEXT",
+    "description": "Learn how to set up your first static...",
+    "date": "16/02/2026",
+    "mainImage": "photos/floorplan1.jpg",
+    "content": "<p>IMAGE TEXT IN CONTENT:</p><p><img src=\"photos/IMG_20260203_173003688.jpg\"></p><p>IMAGE TEST AGAIN:</p><p><img src=\"photos/7 barkly street sat view.png\"></p><p>Image TEST NOT UPLOADED:</p><p><img src=\"photos/IMG_20260203_172730420.jpg\"></p>"
+  },
+    "test-upload-imag4e": {
+    "title": "IMAGE TEXT",
+    "description": "Learn how to set up your first static...",
+    "date": "16/02/2026",
+    "mainImage": "photos/floorplan1.jpg",
+    "content": "<p>IMAGE TEXT IN CONTENT:</p><p><img src=\"photos/IMG_20260203_173003688.jpg\"></p><p>IMAGE TEST AGAIN:</p><p><img src=\"photos/7 barkly street sat view.png\"></p><p>Image TEST NOT UPLOADED:</p><p><img src=\"photos/IMG_20260203_172730420.jpg\"></p>"
+  },
+    "test-upload-image5": {
+    "title": "IMAGE TEXT",
+    "description": "Learn how to set up your first static...",
+    "date": "16/02/2026",
+    "mainImage": "photos/floorplan1.jpg",
+    "content": "<p>IMAGE TEXT IN CONTENT:</p><p><img src=\"photos/IMG_20260203_173003688.jpg\"></p><p>IMAGE TEST AGAIN:</p><p><img src=\"photos/7 barkly street sat view.png\"></p><p>Image TEST NOT UPLOADED:</p><p><img src=\"photos/IMG_20260203_172730420.jpg\"></p>"
+  },
+    "test-upload-image6": {
+    "title": "IMAGE TEXT",
+    "description": "Learn how to set up your first static...",
     "date": "16/02/2026",
     "mainImage": "photos/floorplan1.jpg",
     "content": "<p>IMAGE TEXT IN CONTENT:</p><p><img src=\"photos/IMG_20260203_173003688.jpg\"></p><p>IMAGE TEST AGAIN:</p><p><img src=\"photos/7 barkly street sat view.png\"></p><p>Image TEST NOT UPLOADED:</p><p><img src=\"photos/IMG_20260203_172730420.jpg\"></p>"

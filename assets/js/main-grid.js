@@ -1,32 +1,33 @@
-        async function renderGrid() {
-        const response = await fetch('articles.json');
-        const articles = await response.json();
-        const grid = document.querySelector('.article-grid');
+async function renderGrid() {
+    const response = await fetch('articles.json');
+    const articles = await response.json();
+    const grid = document.querySelector('.article-grid');
 
-        // Clear existing static content if any
-        grid.innerHTML = '';
+    // 1. Clear existing content
+    grid.innerHTML = '';
 
-        // Loop through each article key (e.g., "getting-started")
-        Object.keys(articles).forEach(key => {
-            const data = articles[key];
-            
-            // Create the article element
-            const articleCard = document.createElement('article');
-            articleCard.className = 'article';
+    // 2. Convert the object to an array and sort by date (Newest to Oldest)
+    const sortedArticles = Object.entries(articles).sort(([, a], [, b]) => {
+        return new Date(b.date) - new Date(a.date);
+    });
 
-            // Build the inner HTML using your exact structure
-            // The href links to article.html#article-key
-            articleCard.innerHTML = `
-                <a href="article.html#${key}">
-                    <img src="${data.mainImage}" alt="${data.title}" width="100%">
-                    <h2>${data.title}</h2>
-                    <p>${data.description}</p>
-                </a>
-            `;
+    // 3. Loop through the sorted array
+    // [key, data] is used because Object.entries returns [key, value] pairs
+    sortedArticles.forEach(([key, data]) => {
+        
+        const articleCard = document.createElement('article');
+        articleCard.className = 'article';
 
-            grid.appendChild(articleCard);
-        });
-        }
+        articleCard.innerHTML = `
+            <a href="article.html#${key}">
+                <img src="${data.mainImage}" alt="${data.title}" width="100%">
+                <h2>${data.title}</h2>
+                <p>${data.description}</p>
+            </a>
+        `;
 
-        // Call this function when the page loads
-        window.addEventListener('load', renderGrid);
+        grid.appendChild(articleCard);
+    });
+}
+
+window.addEventListener('load', renderGrid);

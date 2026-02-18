@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Localhost Admin</title>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .admin-card { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        label { display: block; font-weight: bold; margin: 15px 0 5px; }
+        input[type="text"], input[type="file"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        #editor-container { height: 300px; margin-bottom: 20px; }
+        .btn-publish { background: #28a745; color: white; border: none; padding: 15px; border-radius: 4px; cursor: pointer; width: 100%; font-size: 1.1em; }
+    </style>
+</head>
+<body>
+
+<div class="admin-card">
+    <h2>New Article (PHP Version)</h2>
+    
+    <label>Slug (URL name)</label>
+    <input type="text" id="slug" placeholder="subaru-impreza-gem">
+
+    <label>Title</label>
+    <input type="text" id="title">
+
+    <label>Description (Short summary for grid)</label>
+    <input type="text" id="desc" placeholder="Is this subaru impreza the best hidden gem...">
+
+    <label>Main Image</label>
+    <input type="file" id="mainImg" accept="image/*">
+
+    <label>Gallery Photos</label>
+    <input type="file" id="extraImgs" accept="image/*" multiple>
+
+    <label>Content (Formatting Enabled)</label>
+    <div id="editor-container"></div>
+
+    <button class="btn-publish" onclick="publish()">Save & Upload to Server</button>
+</div>
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
+// 1. Initialize Quill with a custom Image Handler
+const quill = new Quill('#editor-container', {
+    theme: 'snow',
+    modules: {
+        toolbar: {
+            container: [
+                [{ 'header': [1, 2, false] }],
+                ['bold', 'italic', 'underline'],
+                ['image', 'link', 'blockquote'],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                ['clean']
+            ],
+            handlers: {
+                // This replaces the default "embed" behavior with a "path" behavior
+                image: imageHandler 
+            }
+        }
+    }
+});
+
+// Function that runs when you click the Image icon in the toolbar
+function imageHandler() {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = () => {
+        const file = input.files[0];
+        const range = quill.getSelection();
+
+        // Instead of embedding the whole image, we just insert the path
+        // We assume the image will be in your /photos folder
+        const filePath = `photos/${file.name}`;
+        
+        // Insert the image into the editor at the current cursor position
+        quill.insertEmbed(range.index, 'image', filePath);
+        
+        // Note: You must also select this same file in the "Extra Photos" 
+        // input so the PHP script knows to actually upload it!
+        console.log("Image added to editor: " + filePath);
+    };
+}
+
+// 2. The Main Publish Function
+async function publish() {
+    const slug = document.getElementById('slug').value.trim();
+    const title = document.getElementById('title').value;
+    const desc = document.getElementById('desc').value;
+    const mainFile = document.getElementById('mainImg').files[0];
+    const extraFiles = document.getElementById('extraImgs').files;
+
+    if (!slug || !mainFile) {
+        alert("Please provide at least a Slug and a Main Image.");
+        return;
+    }
+
+    try {
+        // A. Fetch current articles.json from your local server
+        const currentRes = await fetch('articles.json');
+        let articles = {};
+        
+        if (currentRes.ok) {
+            articles = await currentRes.json();
+        }
+
+        // B. Update the object with new data
+        // Quill's .root.innerHTML contains all your text + <img> tags
+        articles[slug] = {
+            title: title,
+            description: desc,
+            date: new Date().toLocaleDateString(),
+            mainImage: `photos/${mainFile.name}`,
+            content: quill.root.innerHTML 
+        };
+
+        // C. Prepare the Multi-part Form (JSON + Actual Files)
+        const formData = new FormData();
+        formData.append('json_data', JSON.stringify(articles, null, 2));
+        
+        // Append Main Image
+        formData.append('images[]', mainFile);
+        
+        // Append all "Extra Photos" used in the body
+        for (let i = 0; i < extraFiles.length; i++) {
+            formData.append('images[]', extraFiles[i]);
+        }
+
+        // D. Send to upload.php
+        const response = await fetch('upload.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            const result = await response.text();
+            alert("Published Successfully: " + result);
+        } else {
+            alert("Server Error: Check your PHP setup or folder permissions.");
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert("Error: " + error.message);
+    }
+}
+</script>
+</body>
+</html>

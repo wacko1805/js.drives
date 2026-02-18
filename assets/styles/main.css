@@ -111,7 +111,11 @@ body {
 
 .name h1 span {
     text-align: center; 
-    transition: 0.5s;
+    display: inline-block;
+    transition: all 0.5s ease-in-out;
+    color: inherit; /* Initial state */
+    margin: 0;
+    
 }
 
 .name h1 span:hover {
@@ -120,7 +124,37 @@ body {
   margin-top: 10px;
   margin-bottom: -10px;
 }
+/* The state triggered by JavaScript */
+.name h1 span.active {
+  color: var(--error);
+  text-shadow: 8px 5px var(--onError);
+  margin-top: 10px;
+  margin-bottom: -100px; /* Note: large negative margins can overlap content below */
+}
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+    color: var(--primary);
+    text-shadow: 8px 5px var(--onPrimary);
+  }
+  50% {
+    /* Peak of the movement */
+    transform: translateY(-20px); 
+    color: var(--error);
+    text-shadow: 8px 5px var(--onError);
+  }
+  100% {
+    /* Back to rest */
+    transform: translateY(0);
+    color: inherit;
+    text-shadow: 8px 5px var(--tertiaryContainer);
+  }
+}
 
+/* This class will be added by JS */
+.animate-bounce {
+  animation: bounce 0.4s ease-in-out forwards;
+}
 
 
 
@@ -147,11 +181,12 @@ body {
                 display: flex;
                 flex-wrap: wrap;       /* Allows items to move to the next row */
                 gap: 20px;             /* Adds space between cards */
-                padding: 20px;
+                margin-top: -3px;
+                margin-right: -10px;
             }
             .article {
                 border: 5px solid var(--secondaryContainer);
-                border-radius: 15px;
+                border-radius: 10px;
                 flex: 0 0 calc(33.333% - 14px); 
                 box-sizing: border-box;
             }
@@ -162,15 +197,19 @@ body {
                 }
             }
 
-            /* Mobile screens: 1 column */
+            /* Mobile screens: 2 column */
             @media (max-width: 600px) {
+              .article-grid {
+                gap: 10px;             /* Adds space between cards */
+              }
+
                 .article {
-                    flex: 0 0 100%;
+                    flex: 0 0 calc(50% - 10px);
                 }
             }
 
             .article img {
-                border-radius: 10px 10px 0px 0px;
+                border-radius: 5px 5px 0px 0px;
                 margin-bottom: -5px;
                 padding: 0;
             }
@@ -179,12 +218,13 @@ body {
                 color: var(--onSecondaryContainer);
                 padding: 10px 10px 10px 10px;
                 border-radius:  0px 0px 10px 10px;
+                font-size: 1.1rem;
             }
             .article p {
                 margin-top: -25px;
                 color: var(--onPrimaryContainer);
                 padding: 0px 10px 0px 10px;
-                font-size: 14px;
+                font-size: 0.9rem;
             }
 
             .article:hover {
@@ -193,5 +233,101 @@ body {
             }
             .article:hover img {
                 transition: 0.3s ease;
-                border-radius: 10px;
+                border-radius: 5px;
             }
+
+
+            .tags-container {
+            overflow-x: auto;
+            overflow-y: auto;
+            white-space: nowrap; /* Prevent wrapping of tags */
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping of the tags container */
+            justify-content: space-between;
+            width: 100%; 
+            margin-bottom: 5px;
+        }
+        @media screen and (max-width: 1050px) {
+
+            .tags-container {
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+                display: block;
+                flex-wrap: nowrap; /* Allow wrapping of the tags container */
+                justify-content: none;
+                margin-bottom: 10px;
+            }
+        }
+
+        .tags {
+            margin: 0;
+            margin-bottom: 5px;
+            padding: 0;
+            font-size: 0; 
+            display: flex;
+            flex-wrap: wrap; /* Allows the spans to wrap inside this container */
+            width: 100%; /* Make sure tags container fills full width */
+        }
+        .tag {
+            transition: 0.5s;
+        }
+        @media screen and (max-width: 1050px) {
+            .tags {
+                margin: 0;
+                margin-bottom: 0px;
+                padding: 0;
+                display: block;
+                font-size: 0; 
+            }
+
+        }
+
+        .tags span {
+            font-size: 20px;
+            padding: 5px 10px;
+            margin-right: 5px;
+            background-color: var(--secondaryContainer);
+            border: 3px solid var(--secondaryContainer);
+            color: var(--error);
+            border-radius: 5px;
+            flex-grow: 1; /* Ensures the span grows to fill the available space */
+            margin-bottom: 5px; /* Optional: space between rows of spans */
+            text-align: center;
+        }
+
+        .tags span:hover {
+            border: 3px solid var(--secondaryContainer);
+            background-color: var(--background);
+            cursor: pointer;
+        }
+
+        .tags .active {
+            border: 3px solid var(--error);
+            background-color: var(--error);
+            color: var(--onError);
+        }
+        .tags .active:hover {
+            border: 3px solid var(--error);
+            background-color: var(--error);
+            color: var(--onError);
+        }
+        @media screen and (max-width: 1050px) {
+            .tags span {
+                display: inline-block;
+                font-size: 15px;
+                padding: 5px 10px;
+            } 
+        }
+
+        .tags p {
+          display: inline;
+        }
+        .tags p span {
+          border: 3px solid var(--secondaryContainer);
+            background-color: var(--background);
+        }
+        .tags p span:hover {
+          cursor: default;
+        }
+
